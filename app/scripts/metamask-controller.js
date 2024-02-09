@@ -68,6 +68,7 @@ import {
 } from '@metamask/permission-controller';
 import SmartTransactionsController from '@metamask/smart-transactions-controller';
 import {
+  METAMASK_DOMAIN,
   SelectedNetworkController,
   createSelectedNetworkMiddleware,
 } from '@metamask/selected-network-controller';
@@ -2421,7 +2422,14 @@ export default class MetamaskController extends EventEmitter {
           // When permissions are added for a given origin we need to
           // set the network client id for that origin to the current
           // globally selected network client id.
-          this.setNetworkClientIdForDomain(origin);
+          if (this.selectedNetworkController.perDomainNetwork) {
+            this.selectedNetworkController.setNetworkClientIdForDomain(
+              origin,
+              this.selectedNetworkController.getNetworkClientIdForDomain(
+                METAMASK_DOMAIN,
+              ),
+            );
+          }
         }
       },
       getPermittedAccountsByOrigin,
@@ -4657,18 +4665,17 @@ export default class MetamaskController extends EventEmitter {
   }
   ///: END:ONLY_INCLUDE_IF
 
+  // this needs tweaking
+  // so when no networkClientId is provided we just want to set to the globally selected network
+  // if a networkClientId is passed we want to set with that
+  // need to think through gating with perDomainNetwork feature flag
   setNetworkClientIdForDomain(
     origin,
     networkClientId = this.selectedNetworkController.getNetworkClientIdForDomain(
       'metamask',
     ),
   ) {
-    const hasPermission =
-      this.permissionController.getPermissions(origin) !== undefined;
-    if (
-      this.selectedNetworkController.state.perDomainNetwork &&
-      hasPermission
-    ) {
+    if (this.selectedNetworkController.state.perDomainNetwork) {
       // TODO: this should be handled inside selectedNetworkController
       // const selectedNetworkClientIdForDomain =
       //   this.selectedNetworkController.getNetworkClientIdForDomain(origin);
@@ -4718,14 +4725,15 @@ export default class MetamaskController extends EventEmitter {
       this.selectedNetworkController.state.perDomainNetwork &&
       hasPermission
     ) {
-      // TODO: this should be handled inside selectedNetworkController
-      // const selectedNetworkClientIdForDomain =
-      //   this.selectedNetworkController.getNetworkClientIdForDomain(origin);
+      // unclear if this is necessary
+      const selectedNetworkClientIdForDomain =
+        this.selectedNetworkController.getNetworkClientIdForDomain(origin);
 
-      // if (selectedNetworkClientIdForDomain === undefined) {
-      this.selectedNetworkController.setNetworkClientIdForDomain(origin);
-      // }
-      // end of things that belong in selectedNetworkController
+      this.selectedNetworkController.setNetworkClientIdForDomain(
+        origin,
+        selectedNetworkClientIdForDomain,
+      );
+
       proxyClient =
         this.selectedNetworkController.getProviderAndBlockTracker(origin);
     } else {
