@@ -2422,7 +2422,7 @@ export default class MetamaskController extends EventEmitter {
           // When permissions are added for a given origin we need to
           // set the network client id for that origin to the current
           // globally selected network client id.
-          if (this.selectedNetworkController.perDomainNetwork) {
+          if (this.selectedNetworkController.state.perDomainNetwork) {
             this.selectedNetworkController.setNetworkClientIdForDomain(
               origin,
               this.selectedNetworkController.getNetworkClientIdForDomain(
@@ -4664,31 +4664,6 @@ export default class MetamaskController extends EventEmitter {
     });
   }
   ///: END:ONLY_INCLUDE_IF
-
-  // this needs tweaking
-  // so when no networkClientId is provided we just want to set to the globally selected network
-  // if a networkClientId is passed we want to set with that
-  // need to think through gating with perDomainNetwork feature flag
-  setNetworkClientIdForDomain(
-    origin,
-    networkClientId = this.selectedNetworkController.getNetworkClientIdForDomain(
-      'metamask',
-    ),
-  ) {
-    if (this.selectedNetworkController.state.perDomainNetwork) {
-      // TODO: this should be handled inside selectedNetworkController
-      // const selectedNetworkClientIdForDomain =
-      //   this.selectedNetworkController.getNetworkClientIdForDomain(origin);
-
-      // if (selectedNetworkClientIdForDomain === undefined) {
-      this.selectedNetworkController.setNetworkClientIdForDomain(
-        origin,
-        networkClientId,
-      );
-      // }
-      // end of things that belong in selectedNetworkController
-    }
-  }
 
   /**
    * A method for creating a provider that is safely restricted for the requesting subject.
