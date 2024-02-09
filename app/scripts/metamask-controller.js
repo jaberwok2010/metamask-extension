@@ -498,6 +498,7 @@ export default class MetamaskController extends EventEmitter {
         ],
         allowedEvents: ['NetworkController:stateChange'],
       }),
+      state: initState.SelectedNetworkController,
     });
 
     // If the selected network client for the metamask domain is not set, set it to the current network client
@@ -515,7 +516,9 @@ export default class MetamaskController extends EventEmitter {
     let networkClient;
     if (this.selectedNetworkController.state.perDomainNetwork) {
       networkClient =
-        this.selectedNetworkController.getProviderAndBlockTracker('metamask');
+        this.selectedNetworkController.getProviderAndBlockTracker(
+          METAMASK_DOMAIN,
+        );
     } else {
       networkClient = this.networkController.getProviderAndBlockTracker();
     }
@@ -541,6 +544,8 @@ export default class MetamaskController extends EventEmitter {
     });
 
     // couples the useRequestQueue featureflag with the perDomainNetwork feature flag
+    // TODO investigate whether this is the best place for this logic
+    // can we pass the useRequestQueue flag to the selectedNetworkController constructor?
     this.selectedNetworkController.setPerDomainNetwork(
       this.preferencesController.store.getState().useRequestQueue,
     );
@@ -2425,9 +2430,7 @@ export default class MetamaskController extends EventEmitter {
           if (this.selectedNetworkController.state.perDomainNetwork) {
             this.selectedNetworkController.setNetworkClientIdForDomain(
               origin,
-              this.selectedNetworkController.getNetworkClientIdForDomain(
-                METAMASK_DOMAIN,
-              ),
+              this.selectedNetworkController.getNetworkClientIdForMetamask(),
             );
           }
         }
@@ -2853,14 +2856,9 @@ export default class MetamaskController extends EventEmitter {
 
       // network management
       setProviderType: (type) => {
-        // when using this format, type happens to be the same as the networkClientId...
-        this.selectedNetworkController.setNetworkClientIdForMetamask(type);
         return this.networkController.setProviderType(type);
       },
       setActiveNetwork: (networkConfigurationId) => {
-        this.selectedNetworkController.setNetworkClientIdForMetamask(
-          networkConfigurationId,
-        );
         return this.networkController.setActiveNetwork(networkConfigurationId);
       },
       rollbackToPreviousProvider:
@@ -4700,14 +4698,20 @@ export default class MetamaskController extends EventEmitter {
       this.selectedNetworkController.state.perDomainNetwork &&
       hasPermission
     ) {
-      // unclear if this is necessary
+      // TODO figure out in what scenarios we need to set the selectedNetworkClientId for the domain
+      // at this point? Is it not guaranteed that the selectedNetworkClientId will be set when we get here
+
+      // check if there is an existing selectedNetworkClientId for the domain
       const selectedNetworkClientIdForDomain =
         this.selectedNetworkController.getNetworkClientIdForDomain(origin);
 
-      this.selectedNetworkController.setNetworkClientIdForDomain(
-        origin,
-        selectedNetworkClientIdForDomain,
-      );
+      // if there is no selectedNetworkClientId for the domain, set it to the selectedNetworkClientId for metamask
+      if (!selectedNetworkClientIdForDomain) {
+        this.selectedNetworkController.setNetworkClientIdForDomain(
+          origin,
+          this.selectedNetworkController.getNetworkClientIdForMetamask(),
+        );
+      }
 
       proxyClient =
         this.selectedNetworkController.getProviderAndBlockTracker(origin);
