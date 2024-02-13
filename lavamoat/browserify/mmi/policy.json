@@ -47,7 +47,7 @@
         "TextEncoder": true
       },
       "packages": {
-        "@metamask/assets-controllers>multiformats": true
+        "@ensdomains/content-hash>cids>multibase": true
       }
     },
     "@ensdomains/content-hash>js-base64": {
@@ -76,7 +76,15 @@
         "TextEncoder": true
       },
       "packages": {
-        "@metamask/assets-controllers>multiformats": true
+        "@ensdomains/content-hash>multicodec>uint8arrays>multiformats": true
+      }
+    },
+    "@ensdomains/content-hash>multicodec>uint8arrays>multiformats": {
+      "globals": {
+        "TextDecoder": true,
+        "TextEncoder": true,
+        "console.warn": true,
+        "crypto.subtle.digest": true
       }
     },
     "@ensdomains/content-hash>multihashes": {
@@ -978,8 +986,7 @@
       "globals": {
         "TextDecoder": true,
         "TextEncoder": true,
-        "console.warn": true,
-        "crypto.subtle.digest": true
+        "console.warn": true
       }
     },
     "@metamask/base-controller": {
