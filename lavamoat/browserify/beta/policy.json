@@ -76,15 +76,7 @@
         "TextEncoder": true
       },
       "packages": {
-        "@ensdomains/content-hash>multicodec>uint8arrays>multiformats": true
-      }
-    },
-    "@ensdomains/content-hash>multicodec>uint8arrays>multiformats": {
-      "globals": {
-        "TextDecoder": true,
-        "TextEncoder": true,
-        "console.warn": true,
-        "crypto.subtle.digest": true
+        "@metamask/assets-controllers>multiformats": true
       }
     },
     "@ensdomains/content-hash>multihashes": {
@@ -854,7 +846,8 @@
       "globals": {
         "TextDecoder": true,
         "TextEncoder": true,
-        "console.warn": true
+        "console.warn": true,
+        "crypto.subtle.digest": true
       }
     },
     "@metamask/base-controller": {
