@@ -49,7 +49,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
@@ -73,7 +72,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
@@ -84,7 +82,8 @@ describe('Settings - general tab, validate the change language functionality:', 
         );
         assert.equal(isLanguageLabelChanged, true, 'Language did not change');
 
-        await driver.isElementPresentAndVisible(selectors.localeSelect);
+        await driver.isElementPresent('.loading-overlay__spinner');
+        await driver.waitForElementNotPresent('.loading-overlay__spinner');
 
         languageIndex = 9;
         const dropdownElement = await driver.findElement(
@@ -94,7 +93,8 @@ describe('Settings - general tab, validate the change language functionality:', 
         const options = await dropdownElement.findElements(By.css('option'));
         await options[languageIndex].click();
 
-        await driver.isElementPresentAndVisible(selectors.localeSelect);
+        await driver.isElementPresent('.loading-overlay__spinner');
+        await driver.waitForElementNotPresent('.loading-overlay__spinner');
 
         const islabelTextChanged = await driver.isElementPresent(
           selectors.currentLanguageLabel,
@@ -115,7 +115,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
@@ -152,12 +151,14 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
         await unlockWallet(driver);
         await changeLanguage({ driver, languageIndex });
+
+        await driver.isElementPresent('.loading-overlay__spinner');
+        await driver.waitForElementNotPresent('.loading-overlay__spinner');
 
         await driver.clickElement(selectors.advanceText);
 
@@ -205,7 +206,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
@@ -239,7 +239,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
@@ -277,7 +276,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
 
       async ({ driver }) => {
@@ -306,7 +304,6 @@ describe('Settings - general tab, validate the change language functionality:', 
         fixtures: new FixtureBuilder().build(),
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
-        failOnConsoleError: false,
       },
       async ({ driver }) => {
         await unlockWallet(driver);
