@@ -47,7 +47,7 @@
         "TextEncoder": true
       },
       "packages": {
-        "@metamask/assets-controllers>multiformats": true
+        "@ensdomains/content-hash>cids>multibase": true
       }
     },
     "@ensdomains/content-hash>js-base64": {
@@ -1734,10 +1734,9 @@
     "@metamask/queued-request-controller": {
       "packages": {
         "@metamask/base-controller": true,
-        "@metamask/controller-utils": true,
         "@metamask/providers>@metamask/json-rpc-engine": true,
         "@metamask/providers>@metamask/rpc-errors": true,
-        "@metamask/selected-network-controller": true
+        "@metamask/utils": true
       }
     },
     "@metamask/rpc-methods-flask>nanoid": {
