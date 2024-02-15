@@ -25,8 +25,8 @@ async function start() {
     `common-0.js`,
     `background-0.js`,
     `ui-0.js`,
-    // `scripts/contentscript.js`, skipped because the validator is erroneously sampling the inlined `scripts/inpage.js` script
-    `scripts/inpage.js`,
+    `scripts/contentscript.js`,
+    // `scripts/inpage.js`, skipped because the validator can't sample the inlined `scripts/inpage.js` script
   ];
   let valid = true;
 
