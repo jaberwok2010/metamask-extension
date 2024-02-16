@@ -2418,6 +2418,8 @@ export default class MetamaskController extends EventEmitter {
           // When permissions are added for a given origin we need to
           // set the network client id for that origin to the current
           // globally selected network client id.
+
+          // TODO only do this when permissions are added
           if (this.selectedNetworkController.state.perDomainNetwork) {
             this.selectedNetworkController.setNetworkClientIdForDomain(
               origin,
@@ -2581,7 +2583,7 @@ export default class MetamaskController extends EventEmitter {
    */
   getProviderNetworkState(origin = 'metamask') {
     let chainId;
-    if (this.preferencesController?.getUseRequestQueue()) {
+    if (this.preferencesController.getUseRequestQueue()) {
       // It would be nice to have selectedNetworkController always return a value, and have it decide how to default the values (in all cases we want the default to be 'what ever the globally selected network is').
       // I ended up adding this defaulting here because of an issue where the selected network for the origin 'metamask' - it is `undefined` until you unlock the wallet and select a network for the first time.
       const networkClientId =
@@ -5708,7 +5710,7 @@ export default class MetamaskController extends EventEmitter {
   }
 
   _notifyChainChange() {
-    if (this.preferencesController?.getUseRequestQueue()) {
+    if (this.preferencesController.getUseRequestQueue()) {
       this.notifyAllConnections((origin) => ({
         method: NOTIFICATION_NAMES.chainChanged,
         params: this.getProviderNetworkState(origin),
