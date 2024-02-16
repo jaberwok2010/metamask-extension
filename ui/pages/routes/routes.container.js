@@ -17,6 +17,7 @@ import {
   ///: END:ONLY_INCLUDE_IF
   getShowExtensionInFullSizeView,
   getSelectedAccount,
+  getPermittedAccountsForCurrentTab,
 } from '../../selectors';
 import {
   lockMetamask,
@@ -29,6 +30,7 @@ import {
   hideImportTokensModal,
   ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
   hideKeyringRemovalResultModal,
+  addPermittedAccount,
   ///: END:ONLY_INCLUDE_IF
 } from '../../store/actions';
 import { pageChanged } from '../../ducks/history/history';
@@ -48,11 +50,23 @@ function mapStateToProps(state) {
     getPreferences(state);
   const { completedOnboarding } = state.metamask;
 
+  // ToDo: Get the connected accounts to the current activeTabOrigin,
+  // If there is more than one connected account to activeTabOrigin,
+  // *BUT* the current account is not one of them, show the banner
+  const account = getSelectedAccount(state);
+  const activeTabOrigin = activeTab.origin;
+  const connectedAccounts = getPermittedAccountsForCurrentTab(state);
+  const showConnectAccountToast =
+    activeTabOrigin &&
+    connectedAccounts.length > 0 &&
+    !connectedAccounts.find((address) => address === account.address);
+
   return {
     alertOpen,
     alertMessage,
-    account: getSelectedAccount(state),
-    activeTabOrigin: activeTab.origin,
+    account,
+    showConnectAccountToast,
+    activeTabOrigin,
     textDirection: state.metamask.textDirection,
     isLoading,
     loadingMessage,
@@ -101,6 +115,8 @@ function mapDispatchToProps(dispatch) {
     hideImportNftsModal: () => dispatch(hideImportNftsModal()),
     hideIpfsModal: () => dispatch(hideIpfsModal()),
     hideImportTokensModal: () => dispatch(hideImportTokensModal()),
+    addPermittedAccount: (activeTabOrigin, address) =>
+      dispatch(addPermittedAccount(activeTabOrigin, address)),
     ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
     hideShowKeyringSnapRemovalResultModal: () =>
       dispatch(hideKeyringRemovalResultModal()),

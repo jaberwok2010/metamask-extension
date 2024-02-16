@@ -143,6 +143,7 @@ export default class Routes extends Component {
     currentCurrency: PropTypes.string,
     account: PropTypes.object,
     activeTabOrigin: PropTypes.string,
+    showConnectAccountToast: PropTypes.bool.isRequired,
     setCurrentCurrencyToUSD: PropTypes.func,
     isLoading: PropTypes.bool,
     loadingMessage: PropTypes.string,
@@ -184,6 +185,7 @@ export default class Routes extends Component {
     hideIpfsModal: PropTypes.func.isRequired,
     isImportTokensModalOpen: PropTypes.bool.isRequired,
     hideImportTokensModal: PropTypes.func.isRequired,
+    addPermittedAccount: PropTypes.func.isRequired,
     ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
     isShowKeyringSnapRemovalResultModal: PropTypes.bool.isRequired,
     hideShowKeyringSnapRemovalResultModal: PropTypes.func.isRequired,
@@ -548,6 +550,7 @@ export default class Routes extends Component {
     const {
       account,
       activeTabOrigin,
+      showConnectAccountToast,
       isLoading,
       isUnlocked,
       alertMessage,
@@ -575,6 +578,7 @@ export default class Routes extends Component {
       isIpfsModalOpen,
       hideIpfsModal,
       hideImportTokensModal,
+      addPermittedAccount,
       ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
       isShowKeyringSnapRemovalResultModal,
       hideShowKeyringSnapRemovalResultModal,
@@ -680,7 +684,7 @@ export default class Routes extends Component {
             zIndex: '200',
           }}
         >
-          {activeTabOrigin ? (
+          {showConnectAccountToast ? (
             <BannerBase
               data-theme={
                 // ToDo: this doesn't appear to work
@@ -702,7 +706,13 @@ export default class Routes extends Component {
                       getURLHost(activeTabOrigin),
                     ])}
                   </Text>
-                  <ButtonLink>{this.context.t('connectAccount')}</ButtonLink>
+                  <ButtonLink
+                    onClick={() =>
+                      addPermittedAccount(activeTabOrigin, account.address)
+                    }
+                  >
+                    {this.context.t('connectAccount')}
+                  </ButtonLink>
                 </Box>
               </Box>
             </BannerBase>
