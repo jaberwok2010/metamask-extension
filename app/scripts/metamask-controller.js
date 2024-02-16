@@ -543,21 +543,6 @@ export default class MetamaskController extends EventEmitter {
       networkConfigurations: this.networkController.state.networkConfigurations,
     });
 
-    // couples the useRequestQueue featureflag with the perDomainNetwork feature flag
-    // TODO investigate whether this is the best place for this logic
-    // can we pass the useRequestQueue flag to the selectedNetworkController constructor?
-    this.selectedNetworkController.setPerDomainNetwork(
-      this.preferencesController.store.getState().useRequestQueue,
-    );
-    this.preferencesController.store.subscribe(({ useRequestQueue }) => {
-      if (
-        useRequestQueue !==
-        this.selectedNetworkController.state.perDomainNetwork
-      ) {
-        this.selectedNetworkController.setPerDomainNetwork(useRequestQueue);
-      }
-    });
-
     this.assetsContractController = new AssetsContractController(
       {
         chainId: this.networkController.state.providerConfig.chainId,
@@ -1158,6 +1143,21 @@ export default class MetamaskController extends EventEmitter {
     this.permissionLogController = new PermissionLogController({
       restrictedMethods: new Set(Object.keys(RestrictedMethods)),
       initState: initState.PermissionLogController,
+    });
+
+    // couples the useRequestQueue featureflag with the perDomainNetwork feature flag
+    // TODO investigate whether this is the best place for this logic
+    // can we pass the useRequestQueue flag to the selectedNetworkController constructor?
+    this.selectedNetworkController.setPerDomainNetwork(
+      this.preferencesController.store.getState().useRequestQueue,
+    );
+    this.preferencesController.store.subscribe(({ useRequestQueue }) => {
+      if (
+        useRequestQueue !==
+        this.selectedNetworkController.state.perDomainNetwork
+      ) {
+        this.selectedNetworkController.setPerDomainNetwork(useRequestQueue);
+      }
     });
 
     this.subjectMetadataController = new SubjectMetadataController({
