@@ -501,16 +501,6 @@ export default class MetamaskController extends EventEmitter {
       state: initState.SelectedNetworkController,
     });
 
-    // If the selected network client for the metamask domain is not set, set it to the current network client
-    // TODO add this to the selected network controller itself
-    // if (
-    //   !this.selectedNetworkController.getNetworkClientIdForDomain('metamask')
-    // ) {
-    //   this.selectedNetworkController.setNetworkClientIdForMetamask(
-    //     this.networkController.state.selectedNetworkClientId,
-    //   );
-    // }
-
     // If the perDomainNetwork feature flag is enabled, use metamask origin provider and block tracker
     // as the proxy passed to the controllers instantiated below, otherwise use the network controller's provider and block tracker
     let networkClient;
