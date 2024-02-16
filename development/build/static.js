@@ -127,8 +127,8 @@ function getCopyTargets(
       dest: `images/contract`,
     },
     {
-      src: `./app/fonts/`,
-      dest: `app/fonts`,
+      src: `./ui/css/utilities/fonts/`,
+      dest: `fonts`,
     },
     {
       src: `./app/vendor/`,

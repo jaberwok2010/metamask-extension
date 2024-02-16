@@ -201,8 +201,6 @@ const cache = args.cache
       name: `MetaMask-${args.env}`,
       version: cacheKey,
 
-      cacheDirectory: join(__dirname, '../../.cache/webpack'),
-
       idleTimeout: 0,
       idleTimeoutForInitialStore: 0,
       idleTimeoutAfterLargeChanges: 0,

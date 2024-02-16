@@ -76,6 +76,12 @@ async function buildScssPipeline(src, dest, devMode) {
           './ui/css',
           './node_modules',
         ],
+        functions: {
+          // Tell sass where to find the font-awesome font files
+          "faFontPath()": function () {
+            return "../webfonts";
+          },
+        }
       }),
       postcss([autoprefixer(), rtlcss()]),
       devMode && sourcemaps.write(),

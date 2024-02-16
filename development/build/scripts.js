@@ -481,7 +481,7 @@ function createScriptTasks({
         // stringify inpage.js into itself, and then make it inject itself into the page
         browserPlatforms.forEach((browser) => {
           makeSelfInjecting(
-            path.join(__dirname, `../../dist/${browser}/${inpage}.js`),
+            path.join(__dirname, `../../dist/${browser}/scripts/${inpage}.js`),
           );
         });
         // delete the inpage.js source map, as it no longer represents inpage.js
@@ -489,7 +489,7 @@ function createScriptTasks({
         // useful anyway, as inpage.js is injected as a `script.textContent`,
         // and not tracked in Sentry or browsers devtools anyway.
         unlinkSync(
-          path.join(__dirname, `../../dist/sourcemaps/${inpage}.js.map`),
+          path.join(__dirname, `../../dist/sourcemaps/scripts/${inpage}.js.map`),
         );
       },
       createNormalBundle({
