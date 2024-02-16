@@ -19,7 +19,13 @@ import {
   Box,
   BoxProps,
 } from '../../component-library';
-import { getUseBlockie } from '../../../selectors';
+import {
+  getAddressConnectedSubjectMap,
+  getOrderedConnectedAccountsForActiveTab,
+  getOriginOfCurrentTab,
+  getPermissionsForActiveTab,
+  getUseBlockie,
+} from '../../../selectors';
 import Tooltip from '../../ui/tooltip';
 import { BadgeStatusProps } from './badge-status.types';
 
@@ -33,6 +39,56 @@ export const BadgeStatus: React.FC<BadgeStatusProps> = ({
   ...props
 }): JSX.Element => {
   const useBlockie = useSelector(getUseBlockie);
+  const permissionsForActiveTab = useSelector(getPermissionsForActiveTab);
+  const connectedAccounts = useSelector(
+    getOrderedConnectedAccountsForActiveTab,
+  );
+
+  const activeWalletSnap = permissionsForActiveTab
+    .map((permission) => permission.key)
+    .includes(WALLET_SNAP_PERMISSION_KEY);
+
+  const addressConnectedSubjectMap = useSelector(getAddressConnectedSubjectMap);
+  const originOfCurrentTab = useSelector(getOriginOfCurrentTab);
+
+  const selectedAddressSubjectMap = addressConnectedSubjectMap[address];
+  const currentTabIsConnectedToSelectedAddress = Boolean(
+    selectedAddressSubjectMap && selectedAddressSubjectMap[originOfCurrentTab],
+  );
+  const isConnectedAndNotActive =
+    findKey(addressConnectedSubjectMap, originOfCurrentTab) === address;
+
+let isActive = false;
+
+for (let i = 0; i < connectedAccounts.length; i++) {
+  if (connectedAccounts[i].address === address) {
+    isActive = i === 0;
+    break; // No need to continue searching once found
+  }
+}
+    let status;
+    if (currentTabIsConnectedToSelectedAddress) {
+      status = STATUS_CONNECTED;
+    } else if (isActive) {
+      status = STATUS_CONNECTED_TO_ANOTHER_ACCOUNT;
+    } else if (activeWalletSnap) {
+      status = STATUS_CONNECTED_TO_SNAP;
+    } else {
+      status = STATUS_NOT_CONNECTED;
+    }
+    console.log(isActive);
+  let badgeBorderColor = BackgroundColor.backgroundDefault;
+  let badgeBackgroundColor = Color.borderMuted;
+  if (status === STATUS_CONNECTED) {
+    badgeBorderColor = BackgroundColor.backgroundDefault;
+    badgeBackgroundColor = BackgroundColor.successDefault;
+  } else if (
+    status === STATUS_CONNECTED_TO_ANOTHER_ACCOUNT ||
+    status === STATUS_CONNECTED_TO_SNAP
+  ) {
+    badgeBorderColor = BorderColor.successDefault;
+    badgeBackgroundColor = BackgroundColor.backgroundDefault;
+  }
 
   return (
     <Box
@@ -86,3 +142,20 @@ export const BadgeStatus: React.FC<BadgeStatusProps> = ({
   );
 };
 
+<<<<<<< HEAD:ui/components/multichain/badge-status/badge-status.tsx
+=======
+BadgeStatus.propTypes = {
+  /**
+   * Additional classNames to be added to the BadgeStatus
+   */
+  className: PropTypes.string,
+  /**
+   * Connection status message on Tooltip
+   */
+  text: PropTypes.string,
+  /**
+   * Address for AvatarAccount
+   */
+  address: PropTypes.string.isRequired,
+};
+>>>>>>> a42ba2492c (added badge status in account list):ui/components/multichain/badge-status/badge-status.js
