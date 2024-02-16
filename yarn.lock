@@ -4728,9 +4728,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/selected-network-controller@npm:@metamask-previews/selected-network-controller@7.0.1-preview.3b3808ff":
-  version: 7.0.1-preview.3b3808ff
-  resolution: "@metamask-previews/selected-network-controller@npm:7.0.1-preview.3b3808ff"
+"@metamask/selected-network-controller@npm:@metamask-previews/selected-network-controller@7.0.1-preview.6fdee42":
+  version: 7.0.1-preview.6fdee42
+  resolution: "@metamask-previews/selected-network-controller@npm:7.0.1-preview.6fdee42"
   dependencies:
     "@metamask/base-controller": "npm:^4.1.1"
     "@metamask/json-rpc-engine": "npm:^7.3.2"
@@ -4741,7 +4741,7 @@ __metadata:
   peerDependencies:
     "@metamask/network-controller": ^17.2.0
     "@metamask/permission-controller": ^8.0.0
-  checksum: 11a60387c6a245caf12ca6bd13c8db2abf5b42d22aba8cb98e3629694fe9f5d025e82c7693a1fcb0f8c6b92f5db747c8fc34c7b2138ec2a786537f0af72769ab
+  checksum: 18ccf4e2621310e5b3c9d67f617a514a6ef1c425cc916bf4f993995025749dfa75e3a295bd56e98cc4236da214ac103e46860c5620cb4783d184d1c421be8f28
   languageName: node
   linkType: hard
 
