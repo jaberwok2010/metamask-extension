@@ -125,6 +125,7 @@ import KeyringSnapRemovalResult from '../../components/app/modals/keyring-snap-r
 ///: END:ONLY_INCLUDE_IF
 
 import { SendPage } from '../../components/multichain/pages/send';
+import { DeprecatedNetworkModal } from '../settings/deprecated-network-modal/DeprecatedNetworkModal';
 
 export default class Routes extends Component {
   static propTypes = {
@@ -170,6 +171,8 @@ export default class Routes extends Component {
     hideIpfsModal: PropTypes.func.isRequired,
     isImportTokensModalOpen: PropTypes.bool.isRequired,
     hideImportTokensModal: PropTypes.func.isRequired,
+    isDeprecatedNetworkModalOpen: PropTypes.bool.isRequired,
+    hideDeprecatedNetworkModal: PropTypes.func.isRequired,
     ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
     isShowKeyringSnapRemovalResultModal: PropTypes.bool.isRequired,
     hideShowKeyringSnapRemovalResultModal: PropTypes.func.isRequired,
@@ -557,12 +560,14 @@ export default class Routes extends Component {
       toggleNetworkMenu,
       accountDetailsAddress,
       isImportTokensModalOpen,
+      isDeprecatedNetworkModalOpen,
       location,
       isImportNftsModalOpen,
       hideImportNftsModal,
       isIpfsModalOpen,
       hideIpfsModal,
       hideImportTokensModal,
+      hideDeprecatedNetworkModal,
       ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
       isShowKeyringSnapRemovalResultModal,
       hideShowKeyringSnapRemovalResultModal,
@@ -640,6 +645,11 @@ export default class Routes extends Component {
         ) : null}
         {isImportTokensModalOpen ? (
           <ImportTokensModal onClose={() => hideImportTokensModal()} />
+        ) : null}
+        {isDeprecatedNetworkModalOpen ? (
+          <DeprecatedNetworkModal
+            onClose={() => hideDeprecatedNetworkModal()}
+          />
         ) : null}
         {
           ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
