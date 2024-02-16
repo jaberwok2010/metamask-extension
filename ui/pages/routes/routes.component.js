@@ -136,7 +136,7 @@ import KeyringSnapRemovalResult from '../../components/app/modals/keyring-snap-r
 
 import { SendPage } from '../../components/multichain/pages/send';
 import { getURLHost } from '../../helpers/utils/util';
-import { BorderColor } from '../../helpers/constants/design-system';
+import { BorderColor, Display } from '../../helpers/constants/design-system';
 
 export default class Routes extends Component {
   static propTypes = {
@@ -689,18 +689,22 @@ export default class Routes extends Component {
                   : ThemeType.light
               }
             >
-              <AvatarAccount
-                address={account.address}
-                size={AvatarAccountSize.Xs}
-                borderColor={BorderColor.transparent}
-              />
-              <Text>
-                {this.context.t('accountIsntConnectedToastText', [
-                  accountName,
-                  getURLHost(activeTabOrigin),
-                ])}
-              </Text>
-              <ButtonLink>{this.context.t('connectAccount')}</ButtonLink>
+              <Box display={Display.Flex} gap={4}>
+                <AvatarAccount
+                  address={account.address}
+                  size={AvatarAccountSize.Md}
+                  borderColor={BorderColor.transparent}
+                />
+                <Box>
+                  <Text>
+                    {this.context.t('accountIsntConnectedToastText', [
+                      accountName,
+                      getURLHost(activeTabOrigin),
+                    ])}
+                  </Text>
+                  <ButtonLink>{this.context.t('connectAccount')}</ButtonLink>
+                </Box>
+              </Box>
             </BannerBase>
           ) : null}
         </Box>
