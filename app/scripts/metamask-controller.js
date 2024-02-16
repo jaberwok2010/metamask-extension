@@ -25,8 +25,8 @@ import {
 } from 'lodash';
 import { keyringBuilderFactory } from '@metamask/eth-keyring-controller';
 import { KeyringController } from '@metamask/keyring-controller';
-import createFilterMiddleware from 'eth-json-rpc-filters';
-import createSubscriptionManager from 'eth-json-rpc-filters/subscriptionManager';
+import createFilterMiddleware from '@metamask/eth-json-rpc-filters';
+import createSubscriptionManager from '@metamask/eth-json-rpc-filters/subscriptionManager';
 import {
   errorCodes as rpcErrorCodes,
   EthereumRpcError,
@@ -961,17 +961,6 @@ export default class MetamaskController extends EventEmitter {
           ),
         ),
       );
-
-      ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
-      for (const custodianType of Object.keys(CUSTODIAN_TYPES)) {
-        additionalKeyrings.push(
-          mmiKeyringBuilderFactory(
-            CUSTODIAN_TYPES[custodianType].keyringClass,
-            { mmiConfigurationController: this.mmiConfigurationController },
-          ),
-        );
-      }
-      ///: END:ONLY_INCLUDE_IF
     } else {
       additionalKeyrings.push(
         hardwareKeyringBuilderFactory(TrezorKeyring, TrezorOffscreenBridge),
@@ -979,6 +968,16 @@ export default class MetamaskController extends EventEmitter {
         keyringBuilderFactory(LatticeKeyringOffscreen),
       );
     }
+
+    ///: BEGIN:ONLY_INCLUDE_IF(build-mmi)
+    for (const custodianType of Object.keys(CUSTODIAN_TYPES)) {
+      additionalKeyrings.push(
+        mmiKeyringBuilderFactory(CUSTODIAN_TYPES[custodianType].keyringClass, {
+          mmiConfigurationController: this.mmiConfigurationController,
+        }),
+      );
+    }
+    ///: END:ONLY_INCLUDE_IF
 
     ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
     const snapKeyringBuildMessenger = this.controllerMessenger.getRestricted({
@@ -4780,6 +4779,9 @@ export default class MetamaskController extends EventEmitter {
             'AccountsController:getSelectedAccount',
           ],
         }),
+        ///: BEGIN:ONLY_INCLUDE_IF(blockaid)
+        appStateController: this.appStateController,
+        ///: END:ONLY_INCLUDE_IF
       }),
     );
 
