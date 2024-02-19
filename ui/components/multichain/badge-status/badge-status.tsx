@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
-import { WALLET_SNAP_PERMISSION_KEY } from '@metamask/snaps-rpc-methods';
 import {
   AlignItems,
   BackgroundColor,
@@ -20,12 +19,7 @@ import {
   Box,
   BoxProps,
 } from '../../component-library';
-import {
-  getAddressConnectedSubjectMap,
-  getOriginOfCurrentTab,
-  getPermissionsForActiveTab,
-  getUseBlockie,
-} from '../../../selectors';
+import { getUseBlockie } from '../../../selectors';
 import Tooltip from '../../ui/tooltip';
 import { BadgeStatusProps } from './badge-status.types';
 
@@ -39,46 +33,6 @@ export const BadgeStatus: React.FC<BadgeStatusProps> = ({
   ...props
 }): JSX.Element => {
   const useBlockie = useSelector(getUseBlockie);
-  const permissionsForActiveTab = useSelector(getPermissionsForActiveTab);
-
-  const activeWalletSnap = permissionsForActiveTab
-    .map((permission) => permission.key)
-    .includes(WALLET_SNAP_PERMISSION_KEY);
-
-  const addressConnectedSubjectMap = useSelector(getAddressConnectedSubjectMap);
-  const originOfCurrentTab = useSelector(getOriginOfCurrentTab);
-
-  const selectedAddressSubjectMap = addressConnectedSubjectMap[address];
-  const currentTabIsConnectedToSelectedAddress = Boolean(
-    selectedAddressSubjectMap && selectedAddressSubjectMap[originOfCurrentTab],
-  );
-
-  let status;
-  if (isActive) {
-    status = STATUS_CONNECTED;
-  } else if (currentTabIsConnectedToSelectedAddress) {
-    status = STATUS_CONNECTED_TO_ANOTHER_ACCOUNT;
-  } else if (activeWalletSnap) {
-    status = STATUS_CONNECTED_TO_SNAP;
-  } else {
-    status = STATUS_NOT_CONNECTED;
-  }
-
-  let badgeBorderColor = BackgroundColor.backgroundDefault;
-  let badgeBackgroundColor = Color.borderMuted;
-  let tooltipText = t('statusNotConnected');
-  if (status === STATUS_CONNECTED) {
-    badgeBorderColor = BackgroundColor.backgroundDefault;
-    badgeBackgroundColor = BackgroundColor.successDefault;
-    tooltipText = t('active');
-  } else if (status === STATUS_CONNECTED_TO_ANOTHER_ACCOUNT) {
-    badgeBorderColor = BorderColor.successDefault;
-    badgeBackgroundColor = BackgroundColor.backgroundDefault;
-    tooltipText = t('tooltipSatusConnectedUpperCase');
-  }
-
-  const connectedAndNotActive =
-    currentTabIsConnectedToSelectedAddress && !isActive;
 
   return (
     <Box
@@ -92,7 +46,7 @@ export const BadgeStatus: React.FC<BadgeStatusProps> = ({
       {...(props as BoxProps<'div'>)}
     >
       <Tooltip
-        title={tooltipText}
+        title={text}
         data-testid="multichain-badge-status__tooltip"
         position="bottom"
       >
@@ -111,7 +65,7 @@ export const BadgeStatus: React.FC<BadgeStatusProps> = ({
               backgroundColor={badgeBackgroundColor}
               borderRadius={BorderRadius.full}
               borderColor={badgeBorderColor}
-              borderWidth={connectedAndNotActive ? 2 : 4}
+              borderWidth={isConnectedAndNotActive ? 2 : 4}
             />
           }
         >
