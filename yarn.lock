@@ -4527,25 +4527,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/permission-controller@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@metamask/permission-controller@npm:8.0.0"
-  dependencies:
-    "@metamask/base-controller": "npm:^4.1.1"
-    "@metamask/controller-utils": "npm:^8.0.2"
-    "@metamask/json-rpc-engine": "npm:^7.3.2"
-    "@metamask/rpc-errors": "npm:^6.1.0"
-    "@metamask/utils": "npm:^8.3.0"
-    "@types/deep-freeze-strict": "npm:^1.1.0"
-    deep-freeze-strict: "npm:^1.1.1"
-    immer: "npm:^9.0.6"
-    nanoid: "npm:^3.1.31"
-  peerDependencies:
-    "@metamask/approval-controller": ^5.1.2
-  checksum: cbd418473fc90c210c5d1a50278be2adb62737ad027bd68433651e4de290d178f53e7018c60ac749227f6951c6cab8fef54073b375a5391461a4ae63a9b67706
-  languageName: node
-  linkType: hard
-
 "@metamask/phishing-controller@npm:^8.0.0, @metamask/phishing-controller@npm:^8.0.1":
   version: 8.0.1
   resolution: "@metamask/phishing-controller@npm:8.0.1"
@@ -4728,20 +4709,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/selected-network-controller@npm:@metamask-previews/selected-network-controller@7.0.1-preview.6fdee42":
-  version: 7.0.1-preview.6fdee42
-  resolution: "@metamask-previews/selected-network-controller@npm:7.0.1-preview.6fdee42"
+"@metamask/selected-network-controller@file:../controllers/packages/selected-network-controller::locator=metamask-crx%40workspace%3A.":
+  version: 7.0.1
+  resolution: "@metamask/selected-network-controller@file:../controllers/packages/selected-network-controller#../controllers/packages/selected-network-controller::hash=71ea16&locator=metamask-crx%40workspace%3A."
   dependencies:
     "@metamask/base-controller": "npm:^4.1.1"
     "@metamask/json-rpc-engine": "npm:^7.3.2"
     "@metamask/network-controller": "npm:^17.2.0"
-    "@metamask/permission-controller": "npm:^8.0.0"
     "@metamask/swappable-obj-proxy": "npm:^2.2.0"
     "@metamask/utils": "npm:^8.3.0"
   peerDependencies:
     "@metamask/network-controller": ^17.2.0
-    "@metamask/permission-controller": ^8.0.0
-  checksum: 18ccf4e2621310e5b3c9d67f617a514a6ef1c425cc916bf4f993995025749dfa75e3a295bd56e98cc4236da214ac103e46860c5620cb4783d184d1c421be8f28
+  checksum: 9c24694f34356156ee40debf7c311247fd8d1f70afc87369dde479194063d160e92382ed47429f6b0f606a747311cac1eb69dcf90107e4c7380a06fbf8d53a6d
   languageName: node
   linkType: hard
 

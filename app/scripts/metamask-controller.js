@@ -503,16 +503,16 @@ export default class MetamaskController extends EventEmitter {
 
     // If the perDomainNetwork feature flag is enabled, use metamask origin provider and block tracker
     // as the proxy passed to the controllers instantiated below, otherwise use the network controller's provider and block tracker
-    let networkClient;
-    if (this.selectedNetworkController.state.perDomainNetwork) {
-      networkClient =
-        this.selectedNetworkController.getProviderAndBlockTracker(
-          METAMASK_DOMAIN,
-        );
-    } else {
-      networkClient = this.networkController.getProviderAndBlockTracker();
-    }
+    // let networkClient;
+    // if (this.selectedNetworkController.state.perDomainNetwork) {
+    //   networkClient =
+    //     this.selectedNetworkController.getProviderAndBlockTracker(
+    //       METAMASK_DOMAIN,
+    //     );
+    // } else {
+    // }
 
+    const networkClient = this.networkController.getProviderAndBlockTracker();
     this.provider = networkClient.provider;
     this.blockTracker = networkClient.blockTracker;
 
@@ -2419,12 +2419,10 @@ export default class MetamaskController extends EventEmitter {
           // globally selected network client id.
 
           // TODO only do this when permissions are added
-          if (this.selectedNetworkController.state.perDomainNetwork) {
-            this.selectedNetworkController.setNetworkClientIdForDomain(
-              origin,
-              this.selectedNetworkController.getNetworkClientIdForMetamask(),
-            );
-          }
+          this.selectedNetworkController.setNetworkClientIdForDomain(
+            origin,
+            this.networkController.state.selectedNetworkClientId,
+          );
         }
       },
       getPermittedAccountsByOrigin,
@@ -4694,16 +4692,16 @@ export default class MetamaskController extends EventEmitter {
       // at this point? Is it not guaranteed that the selectedNetworkClientId will be set when we get here
 
       // check if there is an existing selectedNetworkClientId for the domain
-      const selectedNetworkClientIdForDomain =
-        this.selectedNetworkController.getNetworkClientIdForDomain(origin);
+      // const selectedNetworkClientIdForDomain =
+      //   this.selectedNetworkController.getNetworkClientIdForDomain(origin);
 
-      // if there is no selectedNetworkClientId for the domain, set it to the selectedNetworkClientId for metamask
-      if (!selectedNetworkClientIdForDomain) {
-        this.selectedNetworkController.setNetworkClientIdForDomain(
-          origin,
-          this.selectedNetworkController.getNetworkClientIdForMetamask(),
-        );
-      }
+      // // if there is no selectedNetworkClientId for the domain, set it to the selectedNetworkClientId for metamask
+      // if (!selectedNetworkClientIdForDomain) {
+      //   this.selectedNetworkController.setNetworkClientIdForDomain(
+      //     origin,
+      //     this.selectedNetworkController.getNetworkClientIdForMetamask(),
+      //   );
+      // }
 
       proxyClient =
         this.selectedNetworkController.getProviderAndBlockTracker(origin);
@@ -4883,10 +4881,6 @@ export default class MetamaskController extends EventEmitter {
             this.networkController,
           ),
         setActiveNetwork: (networkClientId) => {
-          // setActiveNetwork is used for custom (non-infura) networks, and for these networks networkClientId === networkConfigurationId
-          this.selectedNetworkController.setNetworkClientIdForMetamask(
-            networkClientId,
-          );
           this.networkController.setActiveNetwork(networkClientId);
         },
         findNetworkClientIdByChainId:
@@ -4908,8 +4902,6 @@ export default class MetamaskController extends EventEmitter {
         ),
         getProviderConfig: () => this.networkController.state.providerConfig,
         setProviderType: (type) => {
-          // when using this format, type happens to be the same as the networkClientId...
-          this.selectedNetworkController.setNetworkClientIdForMetamask(type);
           return this.networkController.setProviderType(type);
         },
 
