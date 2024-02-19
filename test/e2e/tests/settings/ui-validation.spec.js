@@ -36,7 +36,7 @@ describe('Setting - About MetaMask : @no-mmi', function () {
         ganacheOptions: defaultGanacheOptions,
         title: this.test.fullTitle(),
       },
-      async (driver) => {
+      async ({ driver }) => {
         await unlockWallet(driver);
 
         // navigate to settings and click on about view
