@@ -2419,10 +2419,14 @@ export default class MetamaskController extends EventEmitter {
           // globally selected network client id.
 
           // TODO only do this when permissions are added
-          this.selectedNetworkController.setNetworkClientIdForDomain(
-            origin,
-            this.networkController.state.selectedNetworkClientId,
-          );
+          if (accounts.length > 0) {
+            this.selectedNetworkController.setNetworkClientIdForDomain(
+              origin,
+              this.networkController.state.selectedNetworkClientId,
+            );
+          } else {
+            // TODO remove domain from selectedNetworkController when permissions are removed?
+          }
         }
       },
       getPermittedAccountsByOrigin,
