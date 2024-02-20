@@ -124,10 +124,7 @@ import { ThemeType } from '../../../shared/constants/preferences';
 import {
   AvatarAccount,
   AvatarAccountSize,
-  BannerBase,
   Box,
-  ButtonLink,
-  Text,
 } from '../../components/component-library';
 import { ToggleIpfsModal } from '../../components/app/nft-default-image/toggle-ipfs-modal';
 ///: BEGIN:ONLY_INCLUDE_IF(keyring-snaps)
@@ -136,8 +133,9 @@ import KeyringSnapRemovalResult from '../../components/app/modals/keyring-snap-r
 
 import { SendPage } from '../../components/multichain/pages/send';
 import { getURLHost } from '../../helpers/utils/util';
-import { BorderColor, Display } from '../../helpers/constants/design-system';
+import { BorderColor } from '../../helpers/constants/design-system';
 import { MILLISECOND } from '../../../shared/constants/time';
+import { Toast } from '../../components/multichain/toast';
 
 export default class Routes extends Component {
   static propTypes = {
@@ -694,50 +692,36 @@ export default class Routes extends Component {
           }}
         >
           {showConnectAccountToast && !this.state.hideConnectAccountToast ? (
-            <BannerBase
-              data-theme={
-                // ToDo: this doesn't appear to work
-                this.getTheme() === ThemeType.light
-                  ? ThemeType.dark
-                  : ThemeType.light
-              }
-              onClose={() => this.setState({ hideConnectAccountToast: true })}
-            >
-              <Box display={Display.Flex} gap={4}>
+            <Toast
+              startAdornment={
                 <AvatarAccount
                   address={account.address}
                   size={AvatarAccountSize.Md}
                   borderColor={BorderColor.transparent}
                 />
-                <Box>
-                  <Text>
-                    {this.context.t('accountIsntConnectedToastText', [
-                      accountName,
-                      getURLHost(activeTabOrigin),
-                    ])}
-                  </Text>
-                  <ButtonLink
-                    onClick={() => {
-                      // Connect this account
-                      addPermittedAccount(activeTabOrigin, account.address);
-                      // Use setTimeout to prevent React re-render from
-                      // hiding the tooltip
-                      setTimeout(() => {
-                        // Trigger a mouseenter on the header's connection icon
-                        // to display the informative connection tooltip
-                        document
-                          .querySelector(
-                            '[data-testid="connection-menu"] [data-tooltipped]',
-                          )
-                          ?.dispatchEvent(new CustomEvent('mouseenter', {}));
-                      }, 500 * MILLISECOND);
-                    }}
-                  >
-                    {this.context.t('connectAccount')}
-                  </ButtonLink>
-                </Box>
-              </Box>
-            </BannerBase>
+              }
+              text={this.context.t('accountIsntConnectedToastText', [
+                accountName,
+                getURLHost(activeTabOrigin),
+              ])}
+              actionText={this.context.t('connectAccount')}
+              onActionClick={() => {
+                // Connect this account
+                addPermittedAccount(activeTabOrigin, account.address);
+                // Use setTimeout to prevent React re-render from
+                // hiding the tooltip
+                setTimeout(() => {
+                  // Trigger a mouseenter on the header's connection icon
+                  // to display the informative connection tooltip
+                  document
+                    .querySelector(
+                      '[data-testid="connection-menu"] [data-tooltipped]',
+                    )
+                    ?.dispatchEvent(new CustomEvent('mouseenter', {}));
+                }, 500 * MILLISECOND);
+              }}
+              onClose={() => this.setState({ hideConnectAccountToast: true })}
+            />
           ) : null}
         </Box>
       </div>
