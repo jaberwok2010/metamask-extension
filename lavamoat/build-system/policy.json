@@ -173,7 +173,7 @@
         "@babel/core>@babel/helper-compilation-targets>semver": true,
         "@babel/preset-env>@babel/compat-data": true,
         "@babel/preset-env>@babel/helper-validator-option": true,
-        "webpack>browserslist": true
+        "browserslist": true
       }
     },
     "@babel/core>@babel/helper-compilation-targets>lru-cache": {
@@ -1442,10 +1442,10 @@
         "autoprefixer>caniuse-lite": true,
         "autoprefixer>fraction.js": true,
         "autoprefixer>normalize-range": true,
+        "browserslist": true,
         "postcss": true,
         "postcss>picocolors": true,
-        "stylelint>postcss-value-parser": true,
-        "webpack>browserslist": true
+        "stylelint>postcss-value-parser": true
       }
     },
     "babelify": {
@@ -2027,6 +2027,28 @@
       "packages": {
         "readable-stream": true,
         "watchify>xtend": true
+      }
+    },
+    "browserslist": {
+      "builtin": {
+        "fs.existsSync": true,
+        "fs.readFileSync": true,
+        "fs.statSync": true,
+        "path.basename": true,
+        "path.dirname": true,
+        "path.join": true,
+        "path.relative": true,
+        "path.resolve": true
+      },
+      "globals": {
+        "console.warn": true,
+        "process.env": true,
+        "process.versions.node": true
+      },
+      "packages": {
+        "autoprefixer>caniuse-lite": true,
+        "browserslist>electron-to-chromium": true,
+        "browserslist>node-releases": true
       }
     },
     "chalk": {
@@ -7842,11 +7864,11 @@
       "packages": {
         "autoprefixer>caniuse-lite": true,
         "autoprefixer>normalize-range": true,
+        "browserslist": true,
         "stylelint>autoprefixer>num2fraction": true,
         "stylelint>postcss": true,
         "stylelint>postcss-value-parser": true,
-        "stylelint>postcss>picocolors": true,
-        "webpack>browserslist": true
+        "stylelint>postcss>picocolors": true
       }
     },
     "stylelint>cosmiconfig": {
@@ -8812,27 +8834,6 @@
       "builtin": {
         "assert.equal": true,
         "assert.ok": true
-      }
-    },
-    "webpack>browserslist": {
-      "builtin": {
-        "fs.existsSync": true,
-        "fs.readFileSync": true,
-        "fs.statSync": true,
-        "path.basename": true,
-        "path.dirname": true,
-        "path.join": true,
-        "path.resolve": true
-      },
-      "globals": {
-        "console.warn": true,
-        "process.env": true,
-        "process.versions.node": true
-      },
-      "packages": {
-        "autoprefixer>caniuse-lite": true,
-        "webpack>browserslist>electron-to-chromium": true,
-        "webpack>browserslist>node-releases": true
       }
     },
     "webpack>eslint-scope": {

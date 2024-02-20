@@ -484,6 +484,7 @@
     "bify-module-groups": "^2.0.0",
     "brfs": "^2.0.2",
     "browserify": "^17.0.0",
+    "browserslist": "^4.23.0",
     "buffer": "^6.0.3",
     "chalk": "^4.1.2",
     "chokidar": "^3.5.3",
@@ -532,7 +533,7 @@
     "gulp-watch": "^5.0.1",
     "gulp-zip": "^5.1.0",
     "history": "^5.0.0",
-    "html-bundler-webpack-plugin": "^3.4.12",
+    "html-bundler-webpack-plugin": "3.5.0",
     "husky": "^8.0.3",
     "ini": "^3.0.0",
     "istanbul-lib-coverage": "^3.2.0",
@@ -691,12 +692,11 @@
       "@storybook/react-webpack5>@storybook/builder-webpack5>@swc/core": false,
       "@swc/core": true,
       "node-pty": true,
-      "$root$": false,
+      "$root$": true,
       "@metamask/eth-trezor-keyring>@trezor/connect-web>@trezor/connect>@trezor/transport>usb": false,
       "@metamask/ethjs-query>babel-runtime>core-js": false,
       "@storybook/test-runner>@swc/core": false,
-      "@lavamoat/lavadome-react>@lavamoat/preinstall-always-fail": false,
-      "tsx>esbuild": false
+      "@lavamoat/lavadome-react>@lavamoat/preinstall-always-fail": false
     }
   },
   "packageManager": "yarn@4.0.2"

@@ -1,3 +1,3 @@
-// curently only used in webpack build.
+// currently only used in webpack build.
 
-import 'ses';
+require('ses');

@@ -431,10 +431,12 @@ export const TEST_NETWORK_TICKER_MAP: {
     'localhost' | 'mainnet' | 'rpc' | 'linea-mainnet'
   >]: string;
 } = {
-  [NETWORK_TYPES.GOERLI]: `${typedCapitalize(NETWORK_TYPES.GOERLI)}${CURRENCY_SYMBOLS.ETH
-    }`,
-  [NETWORK_TYPES.SEPOLIA]: `${typedCapitalize(NETWORK_TYPES.SEPOLIA)}${CURRENCY_SYMBOLS.ETH
-    }`,
+  [NETWORK_TYPES.GOERLI]: `${typedCapitalize(NETWORK_TYPES.GOERLI)}${
+    CURRENCY_SYMBOLS.ETH
+  }`,
+  [NETWORK_TYPES.SEPOLIA]: `${typedCapitalize(NETWORK_TYPES.SEPOLIA)}${
+    CURRENCY_SYMBOLS.ETH
+  }`,
   [NETWORK_TYPES.LINEA_GOERLI]: `Linea${CURRENCY_SYMBOLS.ETH}`,
 };
 
@@ -723,8 +725,9 @@ const defaultEtherscanSubdomainPrefix = 'api';
 export const ETHERSCAN_SUPPORTED_NETWORKS = {
   [CHAIN_IDS.GOERLI]: {
     domain: defaultEtherscanDomain,
-    subdomain: `${defaultEtherscanSubdomainPrefix}-${CHAIN_ID_TO_TYPE_MAP[CHAIN_IDS.GOERLI]
-      }`,
+    subdomain: `${defaultEtherscanSubdomainPrefix}-${
+      CHAIN_ID_TO_TYPE_MAP[CHAIN_IDS.GOERLI]
+    }`,
   },
   [CHAIN_IDS.MAINNET]: {
     domain: defaultEtherscanDomain,
@@ -732,8 +735,9 @@ export const ETHERSCAN_SUPPORTED_NETWORKS = {
   },
   [CHAIN_IDS.SEPOLIA]: {
     domain: defaultEtherscanDomain,
-    subdomain: `${defaultEtherscanSubdomainPrefix}-${CHAIN_ID_TO_TYPE_MAP[CHAIN_IDS.SEPOLIA]
-      }`,
+    subdomain: `${defaultEtherscanSubdomainPrefix}-${
+      CHAIN_ID_TO_TYPE_MAP[CHAIN_IDS.SEPOLIA]
+    }`,
   },
   [CHAIN_IDS.LINEA_GOERLI]: {
     domain: 'lineascan.build',

@@ -72,13 +72,9 @@ function runInChildProcess(
       `--policyOnly=${policyOnly ? 'true' : 'false'}`,
       '--skip-stats=true',
     ];
-    const childProcess = spawn(
-      'yarn',
-      args,
-      {
-        env: process.env,
-      },
-    );
+    const childProcess = spawn('yarn', args, {
+      env: process.env,
+    });
 
     // forward logs to main process
     childProcess.stdout.on('data', (data) =>

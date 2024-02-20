@@ -489,7 +489,10 @@ function createScriptTasks({
         // useful anyway, as inpage.js is injected as a `script.textContent`,
         // and not tracked in Sentry or browsers devtools anyway.
         unlinkSync(
-          path.join(__dirname, `../../dist/sourcemaps/scripts/${inpage}.js.map`),
+          path.join(
+            __dirname,
+            `../../dist/sourcemaps/scripts/${inpage}.js.map`,
+          ),
         );
       },
       createNormalBundle({
@@ -1367,12 +1370,15 @@ function renderHtmlFile({
   const htmlOutput = Sqrl.render(htmlTemplate, { isMMI, isTest })
     // these replacements are added to support the webpack build's automatic
     // compilation of html files, which the gulp-based process doesn't support.
-    .replace("./scripts/load-background.ts", "./load-background.js")
-    .replace("<script src=\"./load-background.js\"></script>", "<script src=\"./load-background.js\"></script>\n    <script src=\"./chromereload.js\"></script>")
-    .replace("./scripts/load-ui.ts", "./load-app.js")
-    .replace("../ui/css/index.scss", "./index.css")
-    .replace("@lavamoat/snow/snow.prod.js", "./snow.js")
-    .replace("./scripts/use-snow.js", "./use-snow.js")
+    .replace('./scripts/load-background.ts', './load-background.js')
+    .replace(
+      '<script src="./load-background.js"></script>',
+      '<script src="./load-background.js"></script>\n    <script src="./chromereload.js"></script>',
+    )
+    .replace('./scripts/load-ui.ts', './load-app.js')
+    .replace('../ui/css/index.scss', './index.css')
+    .replace('@lavamoat/snow/snow.prod.js', './snow.js')
+    .replace('./scripts/use-snow.js', './use-snow.js');
   browserPlatforms.forEach((platform) => {
     const dest = `./dist/${platform}/${htmlName}.html`;
     // we dont have a way of creating async events atm
