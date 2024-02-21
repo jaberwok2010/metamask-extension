@@ -75,9 +75,11 @@ describe('Multiple ERC20 Watch Asset', function () {
         await driver.delay(largeDelayMs);
         await switchToNotificationWindow(driver);
 
+        console.log('notification?');
         await driver.findClickableElement({ text: 'Confirm', tag: 'button' });
         await driver.clickElement({ text: 'Confirm', tag: 'button' });
 
+        console.log('test dapp waiting for 3rd token');
         // Wait for token 3 address to populate in dapp
         await driver.switchToWindowWithTitle(WINDOW_TITLES.TestDApp);
         await driver.wait(async () => {
@@ -87,7 +89,7 @@ describe('Multiple ERC20 Watch Asset', function () {
           const tokenAddresses = await tokenAddressesElement.getText();
           return tokenAddresses.split(',').length === 3;
         }, 10000);
-
+        console.log('has 3 tokens')
         // Watch all 3 tokens
         await driver.clickElement({
           text: 'Add Token(s) to Wallet',
