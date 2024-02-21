@@ -276,18 +276,29 @@ class Driver {
    * @param {number} waitAtLeast - The minimum milliseconds to wait before passing
    * @param {number} timeout - The maximum milliseconds to wait before failing
    */
-  async waitForElementNotPresent(rawLocator, waitAtLeast = 0, timeout = this.timeout) {
+  async waitForElementNotPresent(
+    rawLocator,
+    waitAtLeast = 0,
+    timeout = this.timeout,
+  ) {
     assert(timeout > waitAtLeast);
-    if(waitAtLeast > 0) {
+    if (waitAtLeast > 0) {
       await this.delay(waitAtLeast);
     }
 
     const locator = this.buildLocator(rawLocator);
 
     try {
-      await this.driver.wait(until.elementIsNotPresent(locator), timeout - waitAtLeast)
+      await this.driver.wait(
+        until.elementIsNotPresent(locator),
+        timeout - waitAtLeast,
+      );
     } catch (err) {
-      throw new Error(`Found element ${JSON.stringify(rawLocator)} that should not be present`);
+      throw new Error(
+        `Found element ${JSON.stringify(
+          rawLocator,
+        )} that should not be present`,
+      );
     }
   }
 
