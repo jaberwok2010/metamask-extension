@@ -3,7 +3,6 @@ const { strict: assert } = require('assert');
 const {
   By,
   Condition,
-  error: webdriverError,
   Key,
   until,
   ThenableWebDriver, // eslint-disable-line no-unused-vars -- this is imported for JSDoc
@@ -421,10 +420,6 @@ class Driver {
       'arguments[0].scrollIntoView(true)',
       element,
     );
-  }
-
-  async assertElementNotPresent(rawLocator) {
-    await this.waitForElementNotPresent(rawLocator, 0, this.timeout);
   }
 
   async isElementPresent(rawLocator) {
