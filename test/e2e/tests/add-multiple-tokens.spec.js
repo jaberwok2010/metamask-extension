@@ -7,6 +7,7 @@ const {
   WINDOW_TITLES,
   DAPP_URL,
   unlockWallet,
+  largeDelayMs,
 } = require('../helpers');
 const FixtureBuilder = require('../fixture-builder');
 
@@ -30,12 +31,13 @@ describe('Multiple ERC20 Watch Asset', function () {
         // Create Token 1
         await driver.clickElement({ text: 'Create Token', tag: 'button' });
 
-        await driver.waitUntilXWindowHandles(3);
+        await driver.delay(largeDelayMs);
         await switchToNotificationWindow(driver);
 
         await driver.findClickableElement({ text: 'Confirm', tag: 'button' });
         await driver.clickElement({ text: 'Confirm', tag: 'button' });
 
+        console.log('Confirmed 1');
         // Wait for token 1 address to populate in dapp
         await driver.switchToWindowWithTitle(WINDOW_TITLES.TestDApp);
         await driver.wait(async () => {
@@ -49,12 +51,13 @@ describe('Multiple ERC20 Watch Asset', function () {
         // Create Token 2
         await driver.clickElement({ text: 'Create Token', tag: 'button' });
 
-        await driver.waitUntilXWindowHandles(3);
+        await driver.delay(largeDelayMs);
         await switchToNotificationWindow(driver);
 
         await driver.findClickableElement({ text: 'Confirm', tag: 'button' });
         await driver.clickElement({ text: 'Confirm', tag: 'button' });
 
+        console.log('Confirmed 2');
         // Wait for token 2 address to populate in dapp
         await driver.switchToWindowWithTitle(WINDOW_TITLES.TestDApp);
         await driver.wait(async () => {
@@ -65,10 +68,11 @@ describe('Multiple ERC20 Watch Asset', function () {
           return tokenAddresses.split(',').length === 2;
         }, 10000);
 
+        console.log('confirmed 3');
         // Create Token 3
         await driver.clickElement({ text: 'Create Token', tag: 'button' });
 
-        await driver.waitUntilXWindowHandles(3);
+        await driver.delay(largeDelayMs);
         await switchToNotificationWindow(driver);
 
         await driver.findClickableElement({ text: 'Confirm', tag: 'button' });
