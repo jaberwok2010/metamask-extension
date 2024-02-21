@@ -70,16 +70,14 @@ describe('Multiple ERC20 Watch Asset', function () {
 
         console.log('confirmed 3');
         // Create Token 3
+        await driver.findClickableElement({
+          text: 'Create Token',
+          tag: 'button',
+        });
         await driver.clickElement({ text: 'Create Token', tag: 'button' });
 
         await driver.delay(largeDelayMs);
-        const windows = await driver.getAllWindowHandles();
-        const notification = windows[2];
-
-        console.log(windows);
-
-        await driver.switchToWindow(notification);
-        // await switchToNotificationWindow(driver);
+        await switchToNotificationWindow(driver);
 
         console.log('notification?');
         await driver.findClickableElement({ text: 'Confirm', tag: 'button' });
@@ -95,7 +93,7 @@ describe('Multiple ERC20 Watch Asset', function () {
           const tokenAddresses = await tokenAddressesElement.getText();
           return tokenAddresses.split(',').length === 3;
         }, 10000);
-        console.log('has 3 tokens')
+        console.log('has 3 tokens');
         // Watch all 3 tokens
         await driver.clickElement({
           text: 'Add Token(s) to Wallet',
