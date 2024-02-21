@@ -9002,6 +9002,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/html-minifier-terser@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "@types/html-minifier-terser@npm:7.0.2"
+  checksum: 312d9285b034538fc8c851d99b5cc47f83e802f0dccc1be4adf10d4ee881d92d14f97ca1862313a827b844a7f71db6ab80198d7741f1747a9bcf7de77181ce40
+  languageName: node
+  linkType: hard
+
 "@types/http-cache-semantics@npm:*":
   version: 4.0.1
   resolution: "@types/http-cache-semantics@npm:4.0.1"
@@ -20016,10 +20023,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-bundler-webpack-plugin@npm:3.5.0":
-  version: 3.5.0
-  resolution: "html-bundler-webpack-plugin@npm:3.5.0"
+"html-bundler-webpack-plugin@npm:3.5.2":
+  version: 3.5.2
+  resolution: "html-bundler-webpack-plugin@npm:3.5.2"
   dependencies:
+    "@types/html-minifier-terser": "npm:^7.0.2"
     ansis: "npm:2.0.3"
     enhanced-resolve: "npm:>=5.7.0"
     eta: "npm:^3.1.1"
@@ -20060,7 +20068,7 @@ __metadata:
       optional: true
     twig:
       optional: true
-  checksum: 468dff217f2d460b974bf4a9f70e5df3d52c9063aa143f16d7277d286b9837e9726337b03c3e10f7f696d3936f28ef6541d5731da7faa31fc7a8b2c94a03a9de
+  checksum: c190c626f74d3c3471aa00869da451eb57b7bd39188bd7684ac6e10d8aa156adaf30911220fd36bb1c1681057c4abc8367e7650a37f07795c7be96ec6ed8f2d0
   languageName: node
   linkType: hard
 
@@ -24836,7 +24844,7 @@ __metadata:
     gulp-watch: "npm:^5.0.1"
     gulp-zip: "npm:^5.1.0"
     history: "npm:^5.0.0"
-    html-bundler-webpack-plugin: "npm:3.5.0"
+    html-bundler-webpack-plugin: "npm:3.5.2"
     human-standard-token-abi: "npm:^2.0.0"
     husky: "npm:^8.0.3"
     immer: "npm:^9.0.6"
