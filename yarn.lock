@@ -24631,7 +24631,7 @@ __metadata:
     resolve-url-loader: "npm:^3.1.5"
     sass: "npm:^1.32.4"
     sass-loader: "npm:^10.1.1"
-    selenium-webdriver: "npm:^4.15.0"
+    selenium-webdriver: "npm:^4.18.1"
     semver: "npm:^7.5.4"
     serve-handler: "npm:^6.1.2"
     ses: "npm:^1.1.0"
@@ -30718,14 +30718,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selenium-webdriver@npm:^4.15.0":
-  version: 4.15.0
-  resolution: "selenium-webdriver@npm:4.15.0"
+"selenium-webdriver@npm:^4.18.1":
+  version: 4.18.1
+  resolution: "selenium-webdriver@npm:4.18.1"
   dependencies:
     jszip: "npm:^3.10.1"
     tmp: "npm:^0.2.1"
     ws: "npm:>=8.14.2"
-  checksum: 77c0c3b250e04a7eea70aa4edad3abbe9f4683fac29c6bc0fb365423c986de657bc6a174e25e8a679f32ff9be39fdd397c84d60168dafefb621f18b04031f0e3
+  checksum: 3d8063755025a340ea91252ffa589fc7176b4de94533da27cbdf165365046ea56fe6a4c3ec12b819d8388d1314f3d3cbbc1e3845eb657cc0b33736296664046e
   languageName: node
   linkType: hard
 
