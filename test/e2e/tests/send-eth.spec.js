@@ -342,7 +342,7 @@ describe('Send ETH', function () {
             );
 
             // Guard before waitForElementNotPresent -- make sure the Dialog has loaded
-            await driver.findElement({ text: 'Estimated gas fee', tag: 'h6' });
+            await driver.findElement({ text: 'Estimated fee', tag: 'p' });
 
             await driver.waitForElementNotPresent({ text: 'Data', tag: 'li' });
 

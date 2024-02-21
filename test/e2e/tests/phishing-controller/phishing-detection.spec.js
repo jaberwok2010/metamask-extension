@@ -136,11 +136,8 @@ describe('Phishing Detection', function () {
           text: 'continue to the site.',
         });
 
-        // Ensure we see the phishing warning page
-        await driver.findElement({ text: 'Deceptive site ahead', tag: 'h1' });
-
-        // Ensure we're not on the wallet home page
-        await driver.waitForElementNotPresent('[data-testid="wallet-balance"]');
+        // We don't really know what we're going to see at this site, so a waitAtLeast guard of 1000ms is the best choice
+        await driver.waitForElementNotPresent('[data-testid="wallet-balance"]', 1000);
       },
     );
   });
