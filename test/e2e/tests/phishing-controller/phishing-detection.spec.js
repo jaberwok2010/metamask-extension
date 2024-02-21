@@ -136,8 +136,11 @@ describe('Phishing Detection', function () {
           text: 'continue to the site.',
         });
 
-        // We don't really know what we're going to see at this site, so a waitAtLeast guard of 1000ms is the best choice
-        await driver.waitForElementNotPresent('[data-testid="wallet-balance"]', 1000);
+        // We don't really know what we're going to see at this blocked site, so a waitAtLeast guard of 1000ms is the best choice
+        await driver.waitForElementNotPresent(
+          '[data-testid="wallet-balance"]',
+          1000,
+        );
       },
     );
   });
