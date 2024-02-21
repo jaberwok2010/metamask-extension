@@ -832,7 +832,10 @@ async function unlockWallet(
   await driver.press('#password', driver.Key.ENTER);
 
   if (options.waitLoginSuccess !== false) {
+    // Guard before waitForElementNotPresent
     await driver.findElement('[data-testid="network-display"]');
+
+    await driver.waitForElementNotPresent('[data-testid="unlock-page"]');
   }
 }
 
